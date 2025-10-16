@@ -9,6 +9,7 @@ Created on Thu Oct 16 10:53:21 2025
 # Streamlit app: Interactive PSO on Rastrigin with a 3D animated GIF output
 
 import io
+import time
 import numpy as np
 import streamlit as st
 import matplotlib
@@ -226,6 +227,7 @@ if run:
     if bounds_high <= bounds_low:
         st.error("Upper bound must be greater than lower bound.")
     else:
+        t0 = time.perf_counter()
         with st.spinner("Running ACOR (fast) and rendering GIF..."):
             gif_buf = acor_gif_rastrigin_fast(
                 max_iters=max_iters,
@@ -239,10 +241,19 @@ if run:
                 use_global_sigma=use_global_sigma,
                 tail_len=tail_len,
             )
-        st.success("Done! 🎉")
+        elapsed = time.perf_counter() - t0
+        fps_eff = (max_iters / elapsed) if elapsed > 0 else float("nan")
+
+        st.success(f"Done! 🎉 Runtime: {elapsed:.2f} s  •  Effective gen speed: {fps_eff:.1f} frames/s")
         st.image(gif_buf, caption="ACOR (Fast) on Rastrigin — Animated GIF", use_column_width=True)
-        st.download_button("Download GIF", data=gif_buf.getvalue(),
-                           file_name="acor_rastrigin_fast.gif", mime="image/gif")
+
+        col1, col2 = st.columns(2)
+        with col1:
+            st.download_button("Download GIF", data=gif_buf.getvalue(),
+                               file_name="acor_rastrigin_fast.gif", mime="image/gif")
+        with col2:
+            st.metric(label="Runtime (s)", value=f"{elapsed:.2f}", delta=None)
+
 
 st.caption("Tip: For maximum speed, keep grid_res low (≈40–50), FPS ≈ 10–12, and enable global σ.") 
 
