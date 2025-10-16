@@ -237,7 +237,7 @@ if run:
                 fps=fps,
                 orbit_speed=orbit_speed,
                 seed=seed,
-                k=k, m=m, q=q, xi=xi,
+                k=k, m=m, #q=q, xi=xi,
                 use_global_sigma=use_global_sigma,
                 tail_len=tail_len,
             )
