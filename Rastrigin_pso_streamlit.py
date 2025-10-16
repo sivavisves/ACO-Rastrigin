@@ -217,8 +217,8 @@ with st.sidebar:
     #q  = st.slider("Rank sharpness (q)", 0.05, 0.9, 0.25, step=0.01)
     #xi = st.slider("Exploration scale (xi)", 0.1, 2.0, 0.85, step=0.05)
 
-    use_global_sigma = st.toggle("Use global σ (O(k)) — fastest", value=True,
-                                 help="If off, uses classic O(k²) per-archive sigmas.")
+    #use_global_sigma = st.toggle("Use global σ (O(k)) — fastest", value=True,
+    #                             help="If off, uses classic O(k²) per-archive sigmas.")
     tail_len = st.slider("Trail length (0 = off)", 0, 60, 0, step=1)
 
 run = st.button("🚀 Run ACOR (Fast)")
@@ -238,7 +238,7 @@ if run:
                 orbit_speed=orbit_speed,
                 seed=seed,
                 k=k, m=m, #q=q, xi=xi,
-                use_global_sigma=use_global_sigma,
+                use_global_sigma=False,
                 tail_len=tail_len,
             )
         elapsed = time.perf_counter() - t0
