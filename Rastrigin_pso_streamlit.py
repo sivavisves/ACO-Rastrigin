@@ -195,7 +195,7 @@ def acor_gif_rastrigin_fast(
 # --- Sidebar + run (FAST ACOR) ---
 st.set_page_config(page_title="ACOR Animator (Rastrigin, Fast)", page_icon="🐜", layout="centered")
 st.title("🐜 ACOR (Fast) — 3D + 2D Rastrigin Animation")
-st.write("Tune parameters, then click **Run ACOR (Fast)** to generate a GIF.")
+st.write("Tune parameters, then click **Run ACOR (Fast)** to generate a GIF. The goal of the ants is to find the global minimum at (0,0) with f(0,0)=0.")
 
 with st.sidebar:
     st.header("ACOR (Fast) Parameters")
@@ -214,8 +214,8 @@ with st.sidebar:
     st.markdown("**ACOR-specific (fast mode)**")
     k  = st.slider("Archive size (k)", 5, 200, 18, step=1)
     m  = st.slider("Samples per iter (m)", 5, 300, 18, step=1)
-    q  = st.slider("Rank sharpness (q)", 0.05, 0.9, 0.25, step=0.01)
-    xi = st.slider("Exploration scale (xi)", 0.1, 2.0, 0.85, step=0.05)
+    #q  = st.slider("Rank sharpness (q)", 0.05, 0.9, 0.25, step=0.01)
+    #xi = st.slider("Exploration scale (xi)", 0.1, 2.0, 0.85, step=0.05)
 
     use_global_sigma = st.toggle("Use global σ (O(k)) — fastest", value=True,
                                  help="If off, uses classic O(k²) per-archive sigmas.")
