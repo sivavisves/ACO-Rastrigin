@@ -222,7 +222,7 @@ with st.sidebar:
     use_typical_bounds = st.toggle("Use typical bounds for this function", value=True)
 
     # Render & camera
-    max_iters   = st.slider("Iterations (frames)", 10, 400, 50, step=5)
+    max_iters   = st.slider("Iterations (frames)", 10, 400, 70, step=5)
     grid_res    = st.slider("Surface resolution", 30, 150, 48, step=2)
     alpha       = st.slider("Surface transparency (alpha)", 0.0, 1.0, 0.25, step=0.05)
     fps         = st.slider("GIF FPS", 5, 30, 12, step=1)
