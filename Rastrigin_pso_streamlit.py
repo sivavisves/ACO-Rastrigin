@@ -247,7 +247,7 @@ with st.sidebar:
                                  help="If off, uses classic O(k²) per-archive sigmas.")
     tail_len = st.slider("Trail length (0 = off)", 0, 60, 0, step=1)
 
-run = st.button("🚀 Run ACO (Fast)")
+run = st.button("🚀 Run ACO")
 
 if run:
     if bounds_high <= bounds_low:
@@ -272,7 +272,7 @@ if run:
         fps_eff = (max_iters / elapsed) if elapsed > 0 else float("nan")
 
         st.success(f"Done! 🎉 Runtime: {elapsed:.2f} s  •  Effective gen speed: {fps_eff:.1f} frames/s")
-        st.image(gif_buf, caption=f"ACO (Fast) on {objective} — Animated GIF", use_column_width=True)
+        st.image(gif_buf, caption=f"ACO on {objective} — Animated GIF", use_column_width=True)
 
         col1, col2 = st.columns(2)
         with col1:
