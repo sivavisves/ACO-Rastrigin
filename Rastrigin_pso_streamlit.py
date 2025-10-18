@@ -182,7 +182,7 @@ def acor_gif_continuous_fast(
         scat2d_S.set_offsets(S)
         best2d.set_offsets([[best_x[0], best_x[1]]])
 
-        fig.suptitle(f"ACOR (fast) on {obj_label} — 3D + 2D | Iter {frame} | Best f: {best_f:.4f}")
+        fig.suptitle(f"ACO (fast) on {obj_label} — 3D + 2D | Iter {frame} | Best f: {best_f:.4f}")
         set_view(frame)
         return (scat3d_A, scat3d_S, best3d, scat2d_A, scat2d_S, best2d)
 
@@ -237,9 +237,9 @@ with st.sidebar:
         bounds_low  = st.number_input("Lower bound", value=-5.12, step=0.5, format="%.2f")
         bounds_high = st.number_input("Upper bound", value= 5.12, step=0.5, format="%.2f")
 
-    st.markdown("**ACOR-specific (fast mode)**")
-    k  = st.slider("Archive size (k)", 5, 200, 18, step=1)
-    m  = st.slider("Samples per iter (m)", 5, 300, 18, step=1)
+    st.markdown("**ACO-specific**")
+    k  = st.slider("Archive size (k)", 5, 200, 18, step=1, help="Number of pheromone trails maintained in the archive.")
+    m  = st.slider("Samples per iter (m)", 5, 300, 18, step=1, help="Number of new ants sampling at each iteration.")
     #q  = st.slider("Rank sharpness (q)", 0.05, 0.9, 0.25, step=0.01)
     #xi = st.slider("Exploration scale (xi)", 0.1, 2.0, 0.85, step=0.05)
 
@@ -247,14 +247,14 @@ with st.sidebar:
                                  help="If off, uses classic O(k²) per-archive sigmas.")
     tail_len = st.slider("Trail length (0 = off)", 0, 60, 0, step=1)
 
-run = st.button("🚀 Run ACOR (Fast)")
+run = st.button("🚀 Run ACO (Fast)")
 
 if run:
     if bounds_high <= bounds_low:
         st.error("Upper bound must be greater than lower bound.")
     else:
         t0 = time.perf_counter()
-        with st.spinner(f"Running ACOR on {objective} and rendering GIF..."):
+        with st.spinner(f"Running ACO on {objective} and rendering GIF..."):
             gif_buf = acor_gif_continuous_fast(
                 objective=objective,
                 max_iters=max_iters,
@@ -272,12 +272,12 @@ if run:
         fps_eff = (max_iters / elapsed) if elapsed > 0 else float("nan")
 
         st.success(f"Done! 🎉 Runtime: {elapsed:.2f} s  •  Effective gen speed: {fps_eff:.1f} frames/s")
-        st.image(gif_buf, caption=f"ACOR (Fast) on {objective} — Animated GIF", use_column_width=True)
+        st.image(gif_buf, caption=f"ACO (Fast) on {objective} — Animated GIF", use_column_width=True)
 
         col1, col2 = st.columns(2)
         with col1:
             st.download_button("Download GIF", data=gif_buf.getvalue(),
-                               file_name=f"acor_{objective.lower()}_fast.gif", mime="image/gif")
+                               file_name=f"aco_{objective.lower()}_.gif", mime="image/gif")
         with col2:
             st.metric(label="Runtime (s)", value=f"{elapsed:.2f}", delta=None)
 
